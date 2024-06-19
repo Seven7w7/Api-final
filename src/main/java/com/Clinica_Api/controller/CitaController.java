@@ -1,5 +1,6 @@
 package com.Clinica_Api.controller;
 
+
 import com.Clinica_Api.model.Cita;
 import com.Clinica_Api.service.CitaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,6 @@ public class CitaController {
 
     @PostMapping
     public ResponseEntity<Cita> createCita(@RequestBody Cita cita) {
-        Cita savedCita = citaService.save(cita);
-        return ResponseEntity.ok(savedCita);
-    }
-
-    @PostMapping(consumes = "text/plain")
-    public ResponseEntity<Cita> createCitaFromText(@RequestBody String descripcion) {
-        Cita cita = new Cita();
-        cita.setDescripcion(descripcion);
-        // Establece otros campos de 'cita' si es necesario
         Cita savedCita = citaService.save(cita);
         return ResponseEntity.ok(savedCita);
     }

@@ -1,5 +1,6 @@
 package com.Clinica_Api.service;
 
+
 import com.Clinica_Api.model.Cita;
 import com.Clinica_Api.repository.CitaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,17 @@ public class CitaService {
     @Autowired
     private CitaRepository citaRepository;
 
+    @Autowired
+    private PacienteService pacienteService;
+
+    @Autowired
+    private MedicoService medicoService;
+
     public Cita save(Cita cita) {
+        // Verificar que el paciente y el medico existan antes de guardar la cita
+        pacienteService.findById(cita.getPaciente().getId()).orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
+        medicoService.findById(cita.getMedico().getId()).orElseThrow(() -> new RuntimeException("Médico no encontrado"));
+
         return citaRepository.save(cita);
     }
 
@@ -33,4 +44,5 @@ public class CitaService {
         citaRepository.deleteAll();
     }
 }
+
 
